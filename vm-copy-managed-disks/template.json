@@ -420,6 +420,10 @@
             "name": "[concat('shutdown-computevm-', parameters('virtualMachineNamePrefix'), copyIndex(1))]",
             "apiVersion": "2017-04-26-preview",
             "location": "[parameters('location')]",
+			"copy": {
+				"name": "shutdownCopy",
+				"count": "[parameters('virtualMachineCount')]"
+			},
             "properties": {
                 "status": "[parameters('autoShutdownStatus')]",
                 "taskType": "ComputeVmShutdownTask",
