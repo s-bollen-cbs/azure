@@ -27,7 +27,7 @@
 			"value": "Static",
 		},
         	"publicIpAddressSku": {
-            		"value": "Basic"
+            		"value": "Standard"
         	},
 		"autoShutdownStatus": {
 		    "value": "Enabled"
