@@ -9,7 +9,7 @@
 			"value": "Blaise202106"
 		},
 		"virtualMachineNamePrefix": {
-			"value": "BlaiseAzureServer"
+			"value": "BlaiseServer"
 		},
 		"virtualMachineCount": {
 			"value": 2
