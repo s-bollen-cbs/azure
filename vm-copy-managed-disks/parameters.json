@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.14",
+	"contentVersion": "1.0.0.15",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise"
@@ -24,28 +24,28 @@
 			"value": "blaise"
 		},
 		"publicIpAddressType": {
-			"value": "Static",
+			"value": "Static"
 		},
-        	"publicIpAddressSku": {
-            		"value": "Basic"
-        	},
+		"publicIpAddressSku": {
+			"value": "Basic"
+		},
 		"autoShutdownStatus": {
-		    "value": "Enabled"
+			"value": "Enabled"
 		},
 		"autoShutdownTime": {
-		    "value": "18:00"
+			"value": "18:00"
 		},
 		"autoShutdownTimeZone": {
-		    "value": "W. Europe Standard Time"
+			"value": "W. Europe Standard Time"
 		},
 		"autoShutdownNotificationStatus": {
-		    "value": "Enabled"
+			"value": "Enabled"
 		},
 		"autoShutdownNotificationLocale": {
-		    "value": "en"
+			"value": "en"
 		},
 		"autoShutdownNotificationEmail": {
-		    "value": "no-reply@cbs.nl"
+			"value": "no-reply@cbs.nl"
 		}
 	}
 }
