@@ -28,6 +28,24 @@
 		},
         	"publicIpAddressSku": {
             		"value": "Basic"
-        	}
+        	},
+		"autoShutdownStatus": {
+		    "value": "Enabled"
+		},
+		"autoShutdownTime": {
+		    "value": "18:00"
+		},
+		"autoShutdownTimeZone": {
+		    "value": "W. Europe Standard Time"
+		},
+		"autoShutdownNotificationStatus": {
+		    "value": "Enabled"
+		},
+		"autoShutdownNotificationLocale": {
+		    "value": "en"
+		},
+		"autoShutdownNotificationEmail": {
+		    "value": "no_reply@email.com"
+		}
 	}
 }
