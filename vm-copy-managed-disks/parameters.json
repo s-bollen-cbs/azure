@@ -20,9 +20,6 @@
 		"operatingSystem": {
 			"value": "Server2016Gen2"
 		},
-		"dnsPrefixForPublicIP": {
-			"value": "GEN-UNIQUE-12"
-		},
 		"publicIpAddressType": {
 			"value": "Static",
 		},
