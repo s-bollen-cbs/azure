@@ -26,8 +26,8 @@
 		"publicIpAddressType": {
 			"value": "Static",
 		},
-        "publicIpAddressSku": {
-            "value": "Basic"
-        }
+        	"publicIpAddressSku": {
+            		"value": "Basic"
+        	}
 	}
 }
