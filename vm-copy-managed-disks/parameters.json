@@ -20,6 +20,9 @@
 		"operatingSystem": {
 			"value": "Server2016Gen2"
 		},
+		"dnsPrefixForPublicIP": {
+			"value": "BlaiseDNS"
+		},
 		"publicIpAddressType": {
 			"value": "Static",
 		},
