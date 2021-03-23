@@ -137,7 +137,6 @@
 		"myVNetPrefix": "10.0.0.0/16",
 		"myVNetSubnetName": "Subnet1",
 		"myVNetSubnetPrefix": "10.0.0.0/24",
-		"diagnosticStorageAccountName": "[concat('diagst', uniqueString(resourceGroup().id))]",
 		"operatingSystemValues": {
 			"Server2012R2": {
 				"PublisherValue": "MicrosoftWindowsServer",
@@ -358,7 +357,6 @@
 				}
 			},
 			"dependsOn": [
-				"[resourceId('Microsoft.Storage/storageAccounts/', variables('diagnosticStorageAccountName'))]",
 				"[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-NIC1'))]"
 			]
 		},
