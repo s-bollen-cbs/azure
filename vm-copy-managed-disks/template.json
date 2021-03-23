@@ -89,6 +89,47 @@
 			"metadata": {
 				"description": "Public IP address stock keeping unit"
 			}
+		},
+		"autoShutdownStatus": {
+			"type": "string",
+			"defaultValue": "Disabled",
+			"metadata": {
+				"description": "Auto shut down flag indicates whether or not the virtual machines need to be automatically shut down"
+			}
+		},
+		"autoShutdownTime": {
+			"type": "string",
+			"defaultValue": "19:00",
+			"metadata": {
+				"description": "Time at which to automatically shut down the virtual machines"
+			}
+		},
+		"autoShutdownTimeZone": {
+			"type": "string",
+			"defaultValue": "UTC",
+			"metadata": {
+				"description": "The time zone in relation to which the auto shut down time is set"
+			}
+		},
+		"autoShutdownNotificationStatus": {
+			"type": "string",
+			"defaultValue": "Disabled",
+			"metadata": {
+				"description": "Flag to indicate whether or not a notification should be sent when the virtual machines are about to be shut down"
+			}
+		},
+		"autoShutdownNotificationLocale": {
+			"type": "string",
+			"defaultValue": "en",
+			"metadata": {
+				"description": "Notification culture"
+			}
+		},
+		"autoShutdownNotificationEmail": {
+			"type": "string",
+			"metadata": {
+				"description": "Notification recipient email address"
+			}
 		}
 	},
 	"variables": {
@@ -267,19 +308,6 @@
 			}
 		},
 		{
-			"name": "[variables('diagnosticStorageAccountName')]",
-			"type": "Microsoft.Storage/storageAccounts",
-			"location": "[parameters('location')]",
-			"apiVersion": "2019-06-01",
-			"sku": {
-				"name": "Standard_LRS"
-			},
-			"tags": {
-				"displayName": "diagnosticStorageAccount"
-			},
-			"kind": "StorageV2"
-		},
-		{
 			"type": "Microsoft.Compute/virtualMachines",
 			"name": "[concat(parameters('virtualMachineNamePrefix'), copyIndex(1))]",
 			"apiVersion": "2020-06-01",
@@ -325,8 +353,7 @@
 				},
 				"diagnosticsProfile": {
 					"bootDiagnostics": {
-						"enabled": true,
-						"storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('diagnosticStorageAccountName')), '2016-01-01').primaryEndpoints.blob]"
+						"enabled": true
 					}
 				}
 			},
@@ -387,7 +414,31 @@
 			"sku": {
 				"name": "[parameters('publicIpAddressSku')]"
 			}
-		}
+		},
+        {
+            "type": "Microsoft.DevTestLab/schedules",
+            "name": "[concat('shutdown-computevm-', parameters('virtualMachineNamePrefix'), copyIndex(1))]",
+            "apiVersion": "2017-04-26-preview",
+            "location": "[parameters('location')]",
+            "properties": {
+                "status": "[parameters('autoShutdownStatus')]",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "[parameters('autoShutdownTime')]"
+                },
+                "timeZoneId": "[parameters('autoShutdownTimeZone')]",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]",
+                "notificationSettings": {
+                    "status": "[parameters('autoShutdownNotificationStatus')]",
+                    "notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
+                    "timeInMinutes": "30",
+                    "emailRecipient": "[parameters('autoShutdownNotificationEmail')]"
+                }
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineNamePrefix'), copyIndex(1))]"
+            ]
+        }
 	],
 	"outputs": {}
 }
