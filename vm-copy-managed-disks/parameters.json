@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.20",
+	"contentVersion": "1.0.0.21",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise"
@@ -40,7 +40,7 @@
 		},
 		"imageReference": {
 			"value": {
-				"id": "/subscriptions/4b9bbe3c-f520-4cf5-9253-125782353a3b/resourceGroups/Blaise-Shared-Images/providers/Microsoft.Compute/galleries/BlaiseSharedImages/images/Blaise-Web-Server"
+				"id": "[parameters('imageReferenceId')]"
 			}
 	    	}
 	}
