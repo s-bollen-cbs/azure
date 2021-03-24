@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.15",
+	"contentVersion": "1.0.0.16",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise"
@@ -10,9 +10,6 @@
 		},
 		"virtualMachineNamePrefix": {
 			"value": "BlaiseServer"
-		},
-		"virtualMachineCount": {
-			"value": 20
 		},
 		"virtualMachineSize": {
 			"value": "Standard_D4s_v3"
