@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.0",
+	"contentVersion": "1.0.0.6",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -26,7 +26,7 @@
 		},
 		"virtualMachineCount": {
 			"type": "int",
-			"defaultValue": 20,
+			"defaultValue": 2,
 			"metadata": {
 				"description": "Number of  virtual machines to be created"
 			}
