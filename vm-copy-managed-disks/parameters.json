@@ -40,7 +40,7 @@
 		},
 		"imageReference": {
 			"value": {
-				"id": "[parameters('imageReferenceId')]"
+				"id": "/subscriptions/4b9bbe3c-f520-4cf5-9253-125782353a3b/resourceGroups/Blaise-Shared-Images/providers/Microsoft.Compute/galleries/BlaiseSharedImages/images/Blaise-Web-Server"
 			}
 	    	}
 	}
