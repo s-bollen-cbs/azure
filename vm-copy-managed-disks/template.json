@@ -340,14 +340,6 @@
 						"caching": "ReadWrite"
 					}
 				},
-				"osProfile": {
-					"computerName": "[concat(parameters('virtualMachineNamePrefix'),copyIndex(1))]",
-					"adminUsername": "[parameters('virtualMachineAdminUserName')]",
-					"windowsConfiguration": {
-						"provisionVMAgent": true
-					},
-					"adminPassword": "[parameters('virtualMachineAdminPassword')]"
-				},
 				"networkProfile": {
 					"networkInterfaces": [
 						{
