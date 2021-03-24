@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.17",
+	"contentVersion": "1.0.0.18",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise"
@@ -13,9 +13,6 @@
 		},
 		"operatingSystem": {
 			"value": "Server2016Gen2"
-		},
-		"dnsPrefixForPublicIP": {
-			"value": "blaise"
 		},
 		"publicIpAddressType": {
 			"value": "Static"
