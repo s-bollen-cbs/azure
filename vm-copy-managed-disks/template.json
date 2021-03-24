@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.8",
+	"contentVersion": "1.0.0.9",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -411,34 +411,34 @@
 				"name": "[parameters('publicIpAddressSku')]"
 			}
 		},
-        {
-            "type": "Microsoft.DevTestLab/schedules",
-            "name": "[concat('shutdown-computevm-', parameters('virtualMachineNamePrefix'), copyIndex(1))]",
-            "apiVersion": "2017-04-26-preview",
-            "location": "[parameters('location')]",
+		{
+			"type": "Microsoft.DevTestLab/schedules",
+			"name": "[concat('shutdown-computevm-', parameters('virtualMachineNamePrefix'), copyIndex(1))]",
+			"apiVersion": "2017-04-26-preview",
+			"location": "[parameters('location')]",
 			"copy": {
 				"name": "shutdownCopy",
 				"count": "[parameters('virtualMachineCount')]"
 			},
-            "properties": {
-                "status": "[parameters('autoShutdownStatus')]",
-                "taskType": "ComputeVmShutdownTask",
-                "dailyRecurrence": {
-                    "time": "[parameters('autoShutdownTime')]"
-                },
-                "timeZoneId": "[parameters('autoShutdownTimeZone')]",
-                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'), copyIndex(1))]",
-                "notificationSettings": {
-                    "status": "[parameters('autoShutdownNotificationStatus')]",
-                    "notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
-                    "timeInMinutes": "30",
-                    "emailRecipient": "[parameters('autoShutdownNotificationEmail')]"
-                }
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineNamePrefix'), copyIndex(1))]"
-            ]
-        }
+			"properties": {
+				"status": "[parameters('autoShutdownStatus')]",
+				"taskType": "ComputeVmShutdownTask",
+				"dailyRecurrence": {
+					"time": "[parameters('autoShutdownTime')]"
+				},
+				"timeZoneId": "[parameters('autoShutdownTimeZone')]",
+				"targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'), copyIndex(1))]",
+				"notificationSettings": {
+					"status": "[parameters('autoShutdownNotificationStatus')]",
+					"notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
+					"timeInMinutes": "30",
+					"emailRecipient": "[parameters('autoShutdownNotificationEmail')]"
+				}
+			},
+			"dependsOn": [
+				"[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineNamePrefix'), copyIndex(1))]"
+			]
+		}
 	],
 	"outputs": {}
 }
