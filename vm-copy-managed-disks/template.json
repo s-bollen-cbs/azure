@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.12",
+	"contentVersion": "1.0.0.13",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -130,8 +130,8 @@
 			}
 		},
 		"imageReference": {
-			"type": "object"
-			"defaultValue":{
+			"type": "object",
+			"defaultValue": {
 				"publisher": "[variables('operatingSystemValues')[parameters('operatingSystem')].PublisherValue]",
 				"offer": "[variables('operatingSystemValues')[parameters('operatingSystem')].OfferValue]",
 				"sku": "[variables('operatingSystemValues')[parameters('operatingSystem')].SkuValue]",
