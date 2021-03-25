@@ -1,0 +1,190 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"networkSecurityGroups_name": {
+			"defaultValue": "Blaise-NSG",
+			"type": "String"
+		},
+		"networkSecurityGroups_location": {
+			"defaultValue": "westeurope",
+			"type": "String"
+		}
+	},
+	"variables": {
+		"blaiseServicesManagement_rule": {
+			"name": "Blaise-Services-Management",
+			"properties": {
+				"protocol": "TCP",
+				"sourcePortRange": "*",
+				"destinationPortRange": "8031",
+				"sourceAddressPrefix": "*",
+				"destinationAddressPrefix": "*",
+				"access": "Allow",
+				"priority": 200,
+				"direction": "Inbound",
+				"sourcePortRanges": [],
+				"destinationPortRanges": [],
+				"sourceAddressPrefixes": [],
+				"destinationAddressPrefixes": []
+			}
+		},
+		"blaiseServicesExternal_rule": {
+			"name": "Blaise-Services-External",
+			"properties": {
+				"protocol": "TCP",
+				"sourcePortRange": "*",
+				"destinationPortRange": "8033",
+				"sourceAddressPrefix": "*",
+				"destinationAddressPrefix": "*",
+				"access": "Allow",
+				"priority": 220,
+				"direction": "Inbound",
+				"sourcePortRanges": [],
+				"destinationPortRanges": [],
+				"sourceAddressPrefixes": [],
+				"destinationAddressPrefixes": []
+			}
+		},
+		"rdp_rule": {
+			"name": "RDP",
+			"properties": {
+				"protocol": "TCP",
+				"sourcePortRange": "*",
+				"destinationPortRange": "3389",
+				"sourceAddressPrefix": "*",
+				"destinationAddressPrefix": "*",
+				"access": "Allow",
+				"priority": 300,
+				"direction": "Inbound",
+				"sourcePortRanges": [],
+				"destinationPortRanges": [],
+				"sourceAddressPrefixes": [],
+				"destinationAddressPrefixes": []
+			}
+		},
+		"http_rule": {
+			"name": "HTTP",
+			"properties": {
+				"protocol": "TCP",
+				"sourcePortRange": "*",
+				"destinationPortRange": "80",
+				"sourceAddressPrefix": "*",
+				"destinationAddressPrefix": "*",
+				"access": "Allow",
+				"priority": 320,
+				"direction": "Inbound",
+				"sourcePortRanges": [],
+				"destinationPortRanges": [],
+				"sourceAddressPrefixes": [],
+				"destinationAddressPrefixes": []
+			}
+		},
+		"https_rule": {
+			"name": "HTTPS",
+			"properties": {
+				"protocol": "TCP",
+				"sourcePortRange": "*",
+				"destinationPortRange": "443",
+				"sourceAddressPrefix": "*",
+				"destinationAddressPrefix": "*",
+				"access": "Allow",
+				"priority": 340,
+				"direction": "Inbound",
+				"sourcePortRanges": [],
+				"destinationPortRanges": [],
+				"sourceAddressPrefixes": [],
+				"destinationAddressPrefixes": []
+			}
+		},
+		"ssh_rule": {
+			"name": "SSH",
+			"properties": {
+				"protocol": "TCP",
+				"sourcePortRange": "*",
+				"destinationPortRange": "22",
+				"sourceAddressPrefix": "*",
+				"destinationAddressPrefix": "*",
+				"access": "Allow",
+				"priority": 360,
+				"direction": "Inbound",
+				"sourcePortRanges": [],
+				"destinationPortRanges": [],
+				"sourceAddressPrefixes": [],
+				"destinationAddressPrefixes": []
+			}
+		}
+	},
+	"resources": [
+		{
+			"type": "Microsoft.Network/networkSecurityGroups",
+			"apiVersion": "2020-08-01",
+			"name": "[parameters('networkSecurityGroups_name')]",
+			"location": "[parameters('networkSecurityGroups_location')]",
+			"properties": {
+				"securityRules": [
+					"[variables('blaiseServicesManagement_rule')]",
+					"[variables('blaiseServicesExternal_rule')]",
+					"[variables('rdp_rule')]",
+					"[variables('http_rule')]",
+					"[variables('https_rule')]",
+					"[variables('ssh_rule')]"
+				]
+			}
+		},
+		{
+			"type": "Microsoft.Network/networkSecurityGroups/securityRules",
+			"apiVersion": "2020-08-01",
+			"name": "[concat(parameters('networkSecurityGroups_Blaise_NSG_name'), '/', variables('blaiseServicesManagement_rule').name)]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+			],
+			"properties": "[variables('blaiseServicesManagement_rule').properties]"
+		},
+		{
+			"type": "Microsoft.Network/networkSecurityGroups/securityRules",
+			"apiVersion": "2020-08-01",
+			"name": "[concat(parameters('networkSecurityGroups_Blaise_NSG_name'), '/', variables('blaiseServicesExternal_rule').name)]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+			],
+			"properties": "[variables('blaiseServicesManagement_rule').properties]"
+		},
+		{
+			"type": "Microsoft.Network/networkSecurityGroups/securityRules",
+			"apiVersion": "2020-08-01",
+			"name": "[concat(parameters('networkSecurityGroups_Blaise_NSG_name'), '/', variables('rdp_rule').name))]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+			],
+			"properties": "[variables('rdp_rule').properties]"
+		},
+		{
+			"type": "Microsoft.Network/networkSecurityGroups/securityRules",
+			"apiVersion": "2020-08-01",
+			"name": "[concat(parameters('networkSecurityGroups_Blaise_NSG_name'), '/', variables('http_rule').name))]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+			],
+			"properties": "[variables('http_rule').properties]"
+		},
+		{
+			"type": "Microsoft.Network/networkSecurityGroups/securityRules",
+			"apiVersion": "2020-08-01",
+			"name": "[concat(parameters('networkSecurityGroups_Blaise_NSG_name'), '/', variables('https_rule').name))]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+			],
+			"properties": "[variables('https_rule').properties]"
+		},
+		{
+			"type": "Microsoft.Network/networkSecurityGroups/securityRules",
+			"apiVersion": "2020-08-01",
+			"name": "[concat(parameters('networkSecurityGroups_Blaise_NSG_name'), '/', variables('ssh_rule').name))]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_name'))]"
+			],
+			"properties": "[variables('ssh_rule').properties]"
+		}
+	]
+}
