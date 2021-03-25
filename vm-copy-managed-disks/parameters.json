@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.21",
+	"contentVersion": "1.0.0.22",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise"
@@ -37,11 +37,6 @@
 		},
 		"autoShutdownNotificationEmail": {
 			"value": "no-reply@cbs.nl"
-		},
-		"imageReference": {
-			"value": {
-				"id": "/subscriptions/4b9bbe3c-f520-4cf5-9253-125782353a3b/resourceGroups/Blaise-Shared-Images/providers/Microsoft.Compute/galleries/BlaiseSharedImages/images/Blaise-Web-Server"
-			}
-	    	}
+		}
 	}
 }
