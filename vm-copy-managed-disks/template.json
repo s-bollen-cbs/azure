@@ -62,7 +62,7 @@
 			"type": "string",
 			"minLength": 1,
 			"maxLength": 14,
-			"defaultValue": "[uniqueString(resourceGroup().id)]",
+			"defaultValue": "[concat('dns', uniqueString(resourceGroup().id))]",
 			"metadata": {
 				"description": "Globally unique DNS prefix for the Public IPs used to access the Virtual Machines"
 			}
