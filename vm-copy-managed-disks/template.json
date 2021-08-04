@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.13",
+	"contentVersion": "1.0.0.14",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -328,6 +328,14 @@
 			"properties": {
 				"hardwareProfile": {
 					"vmSize": "[parameters('virtualMachineSize')]"
+				},
+				"osProfile": {
+					"computerName": "[concat(parameters('virtualMachineNamePrefix'),copyIndex(1))]",
+					"adminUsername": "[parameters('virtualMachineAdminUserName')]",
+					"adminPassword": "[parameters('virtualMachineAdminPassword')]",
+					"windowsConfiguration": {
+						"provisionVMAgent": true
+					}
 				},
 				"storageProfile": {
 					"imageReference": "[parameters('imageReference')]",
