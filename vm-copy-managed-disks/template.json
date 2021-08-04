@@ -4,7 +4,7 @@
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
-			"defaultValue": "Blaise",
+			"defaultValue": "Blaise5",
 			"metadata": {
 				"description": "Administrator Username for the local admin account"
 			}
@@ -26,7 +26,7 @@
 		"virtualMachineCount": {
 			"type": "int",
 			"metadata": {
-				"description": "Number of  virtual machines to be created"
+				"description": "Number of virtual machines to be created"
 			}
 		},
 		"virtualMachineSize": {
@@ -104,7 +104,7 @@
 		},
 		"autoShutdownTimeZone": {
 			"type": "string",
-			"defaultValue": "UTC",
+			"defaultValue": "W. Europe Standard Time",
 			"metadata": {
 				"description": "The time zone in relation to which the auto shut down time is set"
 			}
@@ -143,9 +143,9 @@
 		}
 	},
 	"variables": {
-		"myVNetName": "Blaise-VNet",
+		"myVNetName": "blaise5-vnet",
 		"myVNetPrefix": "10.0.0.0/16",
-		"myVNetSubnetName": "Subnet1",
+		"myVNetSubnetName": "subnet1",
 		"myVNetSubnetPrefix": "10.0.0.0/24",
 		"operatingSystemValues": {
 			"Server2012R2": {
@@ -170,7 +170,7 @@
 			}
 		},
 		"subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('myVNetName'),  variables('myVNetSubnetName'))]",
-		"networkSecurityGroupName": "Blaise-NSG"
+		"networkSecurityGroupName": "blaise5-nsg"
 	},
 	"resources": [
 		{
