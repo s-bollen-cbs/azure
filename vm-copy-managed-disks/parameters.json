@@ -3,10 +3,10 @@
 	"contentVersion": "1.0.0.22",
 	"parameters": {
 		"virtualMachineAdminUserName": {
-			"value": "Blaise"
+			"value": "Blaise5"
 		},
 		"virtualMachineAdminPassword": {
-			"value": "Blaise202106"
+			"value": "BlaiseTeam2021!"
 		},
 		"virtualMachineSize": {
 			"value": "Standard_D4s_v3"
@@ -24,19 +24,13 @@
 			"value": "Enabled"
 		},
 		"autoShutdownTime": {
-			"value": "18:00"
+			"value": "19:00"
 		},
 		"autoShutdownTimeZone": {
 			"value": "W. Europe Standard Time"
 		},
 		"autoShutdownNotificationStatus": {
-			"value": "Enabled"
-		},
-		"autoShutdownNotificationLocale": {
-			"value": "en"
-		},
-		"autoShutdownNotificationEmail": {
-			"value": "no-reply@cbs.nl"
+			"value": "Disabled"
 		}
 	}
 }
