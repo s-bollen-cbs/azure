@@ -146,7 +146,7 @@
 			"metadata": {
 				"description": "Describes the uri of a disk."
 			}
-		},
+		}
 	},
 	"variables": {
 		"myVNetName": "blaise5-vnet",
@@ -353,7 +353,7 @@
 						},
 						"caching": "ReadWrite",
 						"image": {
-							"url": "[parameters('imageUri')]"
+							"uri": "[parameters('imageUri')]"
 						}
 					}
 				},
