@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.18",
+	"contentVersion": "1.0.0.19",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -344,10 +344,9 @@
 					}
 				},
 				"storageProfile": {
-					"imageReference": "[parameters('imageReference')]",
 					"osDisk": {
 						"name": "[concat(parameters('virtualMachineNamePrefix'),copyIndex(1))]",
-						"createOption": "FromImage",
+						"createOption": "Attach",
 						"managedDisk": {
 							"storageAccountType": "Premium_LRS"
 						},
