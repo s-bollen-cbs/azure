@@ -425,14 +425,17 @@
 			}
 		},
 		{
-			"type": "Microsoft.DevTestLab/schedules",
 			"name": "[concat('shutdown-computevm-', parameters('virtualMachineNamePrefix'), copyIndex(1))]",
-			"apiVersion": "2017-04-26-preview",
+			"type": "Microsoft.DevTestLab/schedules",
+			"apiVersion": "2018-09-15",
 			"location": "[parameters('location')]",
 			"copy": {
 				"name": "shutdownCopy",
 				"count": "[parameters('virtualMachineCount')]"
 			},
+			"dependsOn": [
+				"[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineNamePrefix'), copyIndex(1))]"
+			],
 			"properties": {
 				"status": "[parameters('autoShutdownStatus')]",
 				"taskType": "ComputeVmShutdownTask",
@@ -447,10 +450,7 @@
 					"timeInMinutes": "30",
 					"emailRecipient": "[parameters('autoShutdownNotificationEmail')]"
 				}
-			},
-			"dependsOn": [
-				"[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineNamePrefix'), copyIndex(1))]"
-			]
+			}
 		}
 	],
 	"outputs": {}
