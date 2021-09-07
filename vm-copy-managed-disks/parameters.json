@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.27",
+	"contentVersion": "1.0.0.28",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise5"
@@ -19,6 +19,12 @@
 		},
 		"publicIpAddressSku": {
 			"value": "Basic"
+		},
+		"networkSecurityGroupId": {
+			"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/networkSecurityGroups/blaise5-nsg"
+		},
+		"virtualNetworkId": {
+            		"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/virtualNetworks/blaise5-vnet"
 		},
 		"imageReferenceId": {
 			"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5web/versions/0.0.3"
