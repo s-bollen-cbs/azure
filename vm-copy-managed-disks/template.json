@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.19",
+	"contentVersion": "1.0.0.20",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -141,10 +141,10 @@
 				"description": "Virtual machine image reference"
 			}
 		},
-		"imageUri": {
+		"imageReferenceId": {
 			"type": "string",
 			"metadata": {
-				"description": "Describes the uri of a disk."
+				"description": "Virtual machine image reference"
 			}
 		}
 	},
@@ -343,19 +343,17 @@
 						"provisionVMAgent": true
 					}
 				},
-				"storageProfile": {
-					"osDisk": {
-						"name": "[concat(parameters('virtualMachineNamePrefix'),copyIndex(1))]",
-						"createOption": "Attach",
-						"managedDisk": {
-							"storageAccountType": "Premium_LRS"
-						},
-						"caching": "ReadWrite",
-						"image": {
-							"uri": "[parameters('imageUri')]"
-						}
-					}
-				},
+                                "storageProfile": {
+                                        "osDisk": {
+                                                "createOption": "fromImage",
+                                                "managedDisk": {
+                                                        "storageAccountType": "Premium_LRS"
+                                                }
+                                        },
+                                        "imageReference": {
+                                                "id": "[parameters('imageReferenceId')]"
+                                        }
+                                },
 				"networkProfile": {
 					"networkInterfaces": [
 						{
