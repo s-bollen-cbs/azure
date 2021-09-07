@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.16",
+	"contentVersion": "1.0.0.17",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -140,7 +140,13 @@
 			"metadata": {
 				"description": "Virtual machine image reference"
 			}
-		}
+		},
+		"imageUri": {
+			"type": "string",
+			"metadata": {
+				"description": "Describes the uri of a disk."
+			}
+		},
 	},
 	"variables": {
 		"myVNetName": "blaise5-vnet",
@@ -345,7 +351,10 @@
 						"managedDisk": {
 							"storageAccountType": "Premium_LRS"
 						},
-						"caching": "ReadWrite"
+						"caching": "ReadWrite",
+						"image": {
+							"url": "[parameters('imageUrl')]"
+						}
 					}
 				},
 				"networkProfile": {
