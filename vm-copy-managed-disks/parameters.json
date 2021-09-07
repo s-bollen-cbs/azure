@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.25",
+	"contentVersion": "1.0.0.26",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise5"
@@ -33,7 +33,7 @@
 			"value": "Disabled"
 		},
 		"imageReferenceId": {
-			"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5web/versions/0.0.2"
+			"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5web/versions/0.0.3"
 		}
 	}
 }
