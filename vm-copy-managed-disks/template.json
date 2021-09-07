@@ -353,7 +353,7 @@
 						},
 						"caching": "ReadWrite",
 						"image": {
-							"url": "[parameters('imageUrl')]"
+							"url": "[parameters('imageUri')]"
 						}
 					}
 				},
