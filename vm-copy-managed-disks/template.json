@@ -88,6 +88,20 @@
 				"description": "Public IP address stock keeping unit"
 			}
 		},
+		"networkSecurityGroup": {
+			"type": "string",
+			"defaultValue": "blaise5-nsg",
+			"metadata": {
+				"description": "Network security group name/id"
+			}
+		},
+		"virtualNetworkId": {
+			"type": "string",
+			"defaultValue": "blaise5-vnet",
+			"metadata": {
+				"description": "Virtual Network name/id"
+			}
+		},
 		"autoShutdownStatus": {
 			"type": "string",
 			"defaultValue": "Disabled",
@@ -175,15 +189,17 @@
 				"SkuValue": "2019-Datacenter"
 			}
 		},
-		"subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('myVNetName'),  variables('myVNetSubnetName'))]",
-		"networkSecurityGroupName": "blaise5-nsg"
+		"subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('myVNetId'),  variables('myVNetSubnetName'))]",
+		"myNSGName": "blaise5-nsg",
+		"myNSGId": "[parameters('networkSecurityGroupId')]",
+        	"myVNetId": "[parameters('virtualNetworkId')]"
 	},
 	"resources": [
 		{
 			"comments": "Default Network Security Group for template",
 			"type": "Microsoft.Network/networkSecurityGroups",
 			"apiVersion": "2020-05-01",
-			"name": "[variables('networkSecurityGroupName')]",
+			"name": "[variables('myNSGName')]",
 			"location": "[parameters('location')]",
 			"properties": {
 				"securityRules": [
@@ -298,7 +314,7 @@
 			"location": "[parameters('location')]",
 			"apiVersion": "2020-05-01",
 			"dependsOn": [
-				"[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+				"[resourceId('Microsoft.Network/networkSecurityGroups', variables('myNSGId'))]"
 			],
 			"tags": {
 				"displayName": "[variables('myVNetName')]"
@@ -315,7 +331,7 @@
 						"properties": {
 							"addressPrefix": "[variables('myVNetSubnetPrefix')]",
 							"networkSecurityGroup": {
-								"id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+								"id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('myNSGId'))]"
 							}
 						}
 					}
