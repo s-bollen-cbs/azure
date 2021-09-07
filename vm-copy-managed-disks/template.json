@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.22",
+	"contentVersion": "1.0.0.23",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -88,7 +88,7 @@
 				"description": "Public IP address stock keeping unit"
 			}
 		},
-		"networkSecurityGroup": {
+		"networkSecurityGroupId": {
 			"type": "string",
 			"defaultValue": "blaise5-nsg",
 			"metadata": {
