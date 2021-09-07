@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.15",
+	"contentVersion": "1.0.0.16",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -139,12 +139,6 @@
 			},
 			"metadata": {
 				"description": "Virtual machine image reference"
-			}
-		},
-		"image": {
-			"type": "object",
-			"metadata": {
-				"description": "Has a property uri that describes the uri of a disk."
 			}
 		}
 	},
