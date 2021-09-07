@@ -33,7 +33,7 @@
 			"value": "Disabled"
 		},
 		"imageReference": {
-                        "id": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5web/versions/0.0.1"
+                        "id": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5web/versions/0.0.2"
                 }
 	}
 }
