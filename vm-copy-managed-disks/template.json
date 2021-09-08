@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.25",
+	"contentVersion": "1.0.0.26",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -313,9 +313,6 @@
 			"type": "Microsoft.Network/virtualNetworks",
 			"location": "[parameters('location')]",
 			"apiVersion": "2020-05-01",
-			"dependsOn": [
-				"[resourceId('Microsoft.Network/networkSecurityGroups', variables('myNSGId'))]"
-			],
 			"tags": {
 				"displayName": "[variables('myVNetName')]"
 			},
@@ -331,7 +328,7 @@
 						"properties": {
 							"addressPrefix": "[variables('myVNetSubnetPrefix')]",
 							"networkSecurityGroup": {
-								"id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('myNSGId'))]"
+								"id": "[variables('myNSGId')]"
 							}
 						}
 					}
