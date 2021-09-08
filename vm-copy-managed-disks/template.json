@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.24",
+	"contentVersion": "1.0.0.25",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -189,7 +189,7 @@
 				"SkuValue": "2019-Datacenter"
 			}
 		},
-		"subnetRef": "[concat(variables('myVNetId'), '/subnets/', parameters('myVNetSubnetName'))]",
+		"subnetRef": "[concat(variables('myVNetId'), '/subnets/', variables('myVNetSubnetName'))]",
 		"myNSGName": "blaise5-nsg",
 		"myNSGId": "[parameters('networkSecurityGroupId')]",
         	"myVNetId": "[parameters('virtualNetworkId')]"
