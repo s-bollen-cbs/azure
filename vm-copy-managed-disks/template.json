@@ -165,7 +165,7 @@
 	"variables": {
 		"myVNetName": "blaise5-vnet",
 		"myVNetPrefix": "10.0.0.0/16",
-		"myVNetSubnetName": "subnet1",
+		"myVNetSubnetName": "default",
 		"myVNetSubnetPrefix": "10.0.0.0/24",
 		"operatingSystemValues": {
 			"Server2012R2": {
