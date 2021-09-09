@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.29",
+	"contentVersion": "1.0.0.30",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise5"
@@ -33,7 +33,7 @@
 			"value": "Enabled"
 		},
 		"autoShutdownTime": {
-			"value": "19:00"
+			"value": "18:00"
 		},
 		"autoShutdownTimeZone": {
 			"value": "W. Europe Standard Time"
