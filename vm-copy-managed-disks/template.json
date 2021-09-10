@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.28",
+	"contentVersion": "1.0.0.29",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -200,9 +200,7 @@
 			"name": "[concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-NIC1')]",
 			"apiVersion": "2020-05-01",
 			"location": "[parameters('location')]",
-			"dependsOn": [
-				"[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1'))]"
-			],
+			"dependsOn": [],
 			"copy": {
 				"name": "NICCopy",
 				"count": "[parameters('virtualMachineCount')]"
