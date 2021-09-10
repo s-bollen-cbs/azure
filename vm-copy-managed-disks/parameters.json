@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.32",
+	"contentVersion": "1.0.0.33",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise5"
@@ -27,7 +27,7 @@
             		"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/virtualNetworks/blaise5-vnet"
 		},
 		"imageReferenceId": {
-			"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5web/versions/0.0.6"
+			"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5web/versions/0.0.7"
 		},
 		"autoShutdownStatus": {
 			"value": "Enabled"
