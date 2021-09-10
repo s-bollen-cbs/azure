@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.27",
+	"contentVersion": "1.0.0.28",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -189,37 +189,43 @@
 				"SkuValue": "2019-Datacenter"
 			}
 		},
-		"subnetRef": "[concat(variables('myVNetId'), '/subnets/', variables('myVNetSubnetName'))]",
 		"myNSGName": "blaise5-nsg",
 		"myNSGId": "[parameters('networkSecurityGroupId')]",
-        	"myVNetId": "[parameters('virtualNetworkId')]"
+        	"myVNetId": "[parameters('virtualNetworkId')]",
+		"myVNetSubnetRef": "[concat(variables('myVNetId'), '/subnets/', variables('myVNetSubnetName'))]"
 	},
 	"resources": [
 		{
-			"name": "[variables('myVNetName')]",
-			"type": "Microsoft.Network/virtualNetworks",
-			"location": "[parameters('location')]",
+			"type": "Microsoft.Network/networkInterfaces",
+			"name": "[concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-NIC1')]",
 			"apiVersion": "2020-05-01",
-			"tags": {
-				"displayName": "[variables('myVNetName')]"
+			"location": "[parameters('location')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1'))]"
+			],
+			"copy": {
+				"name": "NICCopy",
+				"count": "[parameters('virtualMachineCount')]"
 			},
 			"properties": {
-				"addressSpace": {
-					"addressPrefixes": [
-						"[variables('myVNetPrefix')]"
-					]
-				},
-				"subnets": [
+				"ipConfigurations": [
 					{
-						"name": "[variables('myVNetSubnetName')]",
+						"name": "ipconfig1",
 						"properties": {
-							"addressPrefix": "[variables('myVNetSubnetPrefix')]",
-							"networkSecurityGroup": {
-								"id": "[variables('myNSGId')]"
+							"privateIPAllocationMethod": "Dynamic",
+							"publicIPAddress": {
+								"id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1'))]"
+							},
+							"subnet": {
+								"id": "[variables('myVNetSubnetRef')]"
 							}
 						}
 					}
-				]
+				],
+                "networkSecurityGroup": {
+                    "id": "[variables('nsgId')]"
+                },
+				"enableIPForwarding": false
 			}
 		},
 		{
@@ -270,59 +276,6 @@
 			"dependsOn": [
 				"[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-NIC1'))]"
 			]
-		},
-		{
-			"type": "Microsoft.Network/networkInterfaces",
-			"name": "[concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-NIC1')]",
-			"apiVersion": "2020-05-01",
-			"location": "[parameters('location')]",
-			"copy": {
-				"name": "NICCopy",
-				"count": "[parameters('virtualMachineCount')]"
-			},
-			"properties": {
-				"ipConfigurations": [
-					{
-						"name": "ipconfig1",
-						"properties": {
-							"privateIPAllocationMethod": "Dynamic",
-							"publicIPAddress": {
-								"id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1'))]"
-							},
-							"subnet": {
-								"id": "[variables('subnetRef')]"
-							}
-						}
-					}
-				],
-				"enableIPForwarding": false
-			},
-			"dependsOn": [
-				"[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1'))]",
-				"[resourceId('Microsoft.Network/virtualNetworks/', variables('myVNetName'))]"
-			]
-		},
-		{
-			"apiVersion": "2020-05-01",
-			"type": "Microsoft.Network/publicIPAddresses",
-			"name": "[concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1')]",
-			"location": "[parameters('location')]",
-			"copy": {
-				"name": "PIPCopy",
-				"count": "[parameters('virtualMachineCount')]"
-			},
-			"tags": {
-				"displayName": "[concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1')]"
-			},
-			"properties": {
-				"publicIPAllocationMethod": "[parameters('publicIpAddressType')]",
-				"dnsSettings": {
-					"domainNameLabel": "[concat(parameters('dnsPrefixForPublicIP'), copyIndex(1))]"
-				}
-			},
-			"sku": {
-				"name": "[parameters('publicIpAddressSku')]"
-			}
 		},
 		{
 			"name": "[concat('shutdown-computevm-', parameters('virtualMachineNamePrefix'), copyIndex(1))]",
