@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.31",
+	"contentVersion": "1.0.0.32",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -39,7 +39,8 @@
 				"Standard_DS4_v2",
 				"Standard_DS5_v2",
 				"Standard_D4s_v3",
-				"Standard_E2s_v3"
+				"Standard_E2s_v3",
+				"Standard_D8as_v4",
 			],
 			"metadata": {
 				"description": "Virtual Machine Size"
