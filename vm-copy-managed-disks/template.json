@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.37",
+	"contentVersion": "1.0.0.38",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -227,7 +227,7 @@
 						"properties": {
 							"privateIPAllocationMethod": "Dynamic",
 							"publicIPAddress": {
-								"id": "[concat(parameters('publicIpAddressId'), parameters('publicIpAddressNamePrefix'), copyIndex(1), '-PIP1'))]"
+								"id": "[concat(parameters('publicIpAddressId'), parameters('publicIpAddressNamePrefix'), copyIndex(1), '-PIP1')]"
 							},
 							"subnet": {
 								"id": "[variables('myVNetSubnetRef')]"
