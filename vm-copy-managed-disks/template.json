@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.36",
+	"contentVersion": "1.0.0.37",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -75,17 +75,17 @@
 				"description": "Location for all resources."
 			}
 		},
+		"publicIpAddressId": {
+			"type": "string",
+			"metadata": {
+				"description": "Public IP Address Id to use"
+			}
+		},
 		"publicIpAddressNamePrefix": {
 			"type": "string",
 			"maxLength": 15,
 			"metadata": {
 				"description": "Name of the Public IP Adresses to use"
-			}
-		},
-		"publicIpAddressId": {
-			"type": "string",
-			"metadata": {
-				"description": "Public IP Address Id to use"
 			}
 		},
 		"publicIpAddressType": {
