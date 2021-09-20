@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.34",
+	"contentVersion": "1.0.0.35",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"type": "string",
@@ -79,14 +79,20 @@
 			"type": "string",
 			"maxLength": 15,
 			"metadata": {
-				"description": "Name of the virtual machine to be created"
+				"description": "Name of the Public IP Adresses to use"
+			}
+		},
+		"publicIpAddressID": {
+			"type": "string",
+			"metadata": {
+				"description": "Public IP Address Id to use"
 			}
 		},
 		"publicIpAddressType": {
 			"type": "string",
 			"defaultValue": "Dynamic",
 			"metadata": {
-				"description": "Public IP address allocation method."
+				"description": "Public IP address allocation method"
 			}
 		},
 		"publicIpAddressSku": {
@@ -221,7 +227,7 @@
 						"properties": {
 							"privateIPAllocationMethod": "Dynamic",
 							"publicIPAddress": {
-								"id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('publicIpAddressNamePrefix'), copyIndex(1), '-PIP1'))]"
+								"id": "[concat(parameters('publicIpAddressId'), parameters('publicIpAddressNamePrefix'), copyIndex(1), '-PIP1'))]"
 							},
 							"subnet": {
 								"id": "[variables('myVNetSubnetRef')]"
@@ -229,9 +235,9 @@
 						}
 					}
 				],
-                "networkSecurityGroup": {
-                    "id": "[variables('myNSGId')]"
-                },
+				"networkSecurityGroup": {
+					"id": "[variables('myNSGId')]"
+				},
 				"enableIPForwarding": false
 			}
 		},
