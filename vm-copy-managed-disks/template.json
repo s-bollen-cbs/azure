@@ -75,6 +75,13 @@
 				"description": "Location for all resources."
 			}
 		},
+		"publicIpAddressNamePrefix": {
+			"type": "string",
+			"maxLength": 15,
+			"metadata": {
+				"description": "Name of the virtual machine to be created"
+			}
+		},
 		"publicIpAddressType": {
 			"type": "string",
 			"defaultValue": "Dynamic",
@@ -214,7 +221,7 @@
 						"properties": {
 							"privateIPAllocationMethod": "Dynamic",
 							"publicIPAddress": {
-								"id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('virtualMachineNamePrefix'), copyIndex(1), '-PIP1'))]"
+								"id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('publicIpAddressNamePrefix'), copyIndex(1), '-PIP1'))]"
 							},
 							"subnet": {
 								"id": "[variables('myVNetSubnetRef')]"
