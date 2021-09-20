@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.35",
+	"contentVersion": "1.0.0.36",
 	"parameters": {
 		"virtualMachineAdminUserName": {
 			"value": "Blaise5"
@@ -15,7 +15,7 @@
 			"value": "Server2016Gen2"
 		},
 		"publicIpAddressNamePrefix": {
-			"value": "bl5web"
+			"value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/publicIPAddresses/bl5web"
 		},
 		"publicIpAddressType": {
 			"value": "Static"
