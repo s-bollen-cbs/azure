@@ -1,6 +1,6 @@
 {
 	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.1",
+	"contentVersion": "1.0.0.2",
 	"parameters": {
 		"dataServerNetworkInterfaceName": {
 			"type": "string"
@@ -63,16 +63,13 @@
 			"allowedValues": "[variables('allowedVirtualMachineSizes')]"
 	        },
 		"dataServerImageReferenceId": {
-			"type": "string",
+			"type": "string"
 		},
 		"managementServerImageReferenceId": {
-			"type": "string",
+			"type": "string"
 		},
 		"loadtestServerImageReferenceId": {
-			"type": "string",
-		},
-		"loadtestServer2ImageReferenceId": {
-			"type": "string",
+			"type": "string"
 		},
 		"networkSecurityGroupId": {
 			"type": "string"
@@ -543,7 +540,7 @@
                     "timeInMinutes": "30"
                 }
             }
-        },
+        }
     ],
     "outputs": {}
 }
