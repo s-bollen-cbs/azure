@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.2",
+    "contentVersion": "1.0.0.3",
     "parameters": {
         "dataServerNetworkInterfaceName": {
             "value": "blaise5-data-860"
@@ -62,7 +62,7 @@
 	"dataServerImageReferenceId": {
 	    "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5data_specialized/versions/0.0.1"
 	},
-	"managmentServerImageReferenceId": {
+	"managementServerImageReferenceId": {
 	    "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5management_specialized/versions/0.0.1"
 	},
 	"loadtestServerImageReferenceId": {
