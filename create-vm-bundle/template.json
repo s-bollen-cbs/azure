@@ -1,11 +1,11 @@
 {
 	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.2",
+	"contentVersion": "1.0.0.3",
 	"parameters": {
 		"dataServerNetworkInterfaceName": {
 			"type": "string"
 		},
-		"managmentServerNetworkInterfaceName": {
+		"managementServerNetworkInterfaceName": {
 			"type": "string"
 		},
 		"loadtestServerNetworkInterfaceName": {
@@ -206,14 +206,14 @@
             "properties": {
                 "ipConfigurations": [
                     {
-                        "name": "managmentServerIpconfig",
+                        "name": "managementServerIpconfig",
                         "properties": {
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIpAddress": {
-                                "id": "[parameters('managmentServerPublicIpAddressId')]"
+                                "id": "[parameters('managementServerPublicIpAddressId')]"
                             }
                         }
                     }
@@ -313,7 +313,7 @@
             }
         },
         {
-            "name": "[parameters('managmentServerVirtualMachineName')]",
+            "name": "[parameters('managementServerVirtualMachineName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2021-03-01",
             "location": "[parameters('location')]",
