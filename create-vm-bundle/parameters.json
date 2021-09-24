@@ -1,5 +1,96 @@
 {
-	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-	"contentVersion": "1.0.0.0",
-	"parameters": {}
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.1",
+    "parameters": {
+        "dataServerNetworkInterfaceName": {
+            "value": "blaise5-data-860"
+        },
+        "managementServerNetworkInterfaceName": {
+            "value": "blaise5-management-242"
+        },
+        "loadtestServerNetworkInterfaceName": {
+            "value": "blaise5-loadtest-296"
+        },
+        "loadtestServer2NetworkInterfaceName": {
+            "value": "blaise5-loadtest-ser659"
+        },
+        "dataServerPublicIpAddressId": {
+            "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/publicIPAddresses/blaise5-sql-server-ip"
+        },
+        "managementServerPublicIpAddressId": {
+            "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/publicIPAddresses/blaise5-management-server-ip"
+        },
+        "loadtestServerPublicIpAddressId": {
+            "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/publicIPAddresses/blaise5-loadtest-server-ip"
+        },
+        "loadtestServer2PublicIpAddressId": {
+            "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/publicIPAddresses/blaise5-loadtest2-server-ip"
+        },
+        "dataServerVirtualMachineName": {
+            "value": "blaise5-data-server"
+        },
+        "managementServerVirtualMachineName": {
+            "value": "blaise5-management-server"
+        },
+        "loadtestServerVirtualMachineName": {
+            "value": "blaise5-loadtest-server"
+        },
+        "loadtestServer2VirtualMachineName": {
+            "value": "blaise5-loadtest-server2"
+        },
+        "dataServerVirtualMachineComputerName": {
+            "value": "blaise5-data"
+        },
+        "managementServerVirtualMachineComputerName": {
+            "value": "blaise5-managem"
+        },
+        "loadtestServerVirtualMachineComputerName": {
+            "value": "blaise5-load1"
+        },
+        "loadtestServer2VirtualMachineComputerName": {
+            "value": "blaise5-load2"
+        },
+        "dataServerVirtualMachineSize": {
+            "value": "Standard_D4ds_v4"
+        },
+        "managementServerVirtualMachineSize": {
+            "value": "Standard_D4s_v3"
+        },
+        "loadtestServerVirtualMachineSize": {
+            "value": "Standard_D8as_v4"
+        },
+	"dataServerImageReferenceId": {
+	    "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5data_specialized/versions/0.0.1"
+	},
+	"managmentServerImageReferenceId": {
+	    "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5management_specialized/versions/0.0.1"
+	},
+	"loadtestServerImageReferenceId": {
+	    "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-image-rg/providers/Microsoft.Compute/galleries/blaise5gallery/images/blaise5load/versions/0.0.1"
+	},
+        "networkSecurityGroupId": {
+            "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/networkSecurityGroups/blaise5-nsg"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/bb4f8ea5-28ad-4f95-800c-fd3db1329674/resourceGroups/blaise5-vnet-rg/providers/Microsoft.Network/virtualNetworks/blaise5-vnet"
+        },
+        "virtualMachineRG": {
+            "value": "blaise5-vm-rg"
+        },
+        "osDiskType": {
+            "value": "Premium_LRS"
+        },
+        "adminUsername": {
+            "value": "Blaise5"
+        },
+        "adminPassword": {
+            "value": "BlaiseTeam2021!"
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "enableHotpatching": {
+            "value": false
+        }
+    }
 }
