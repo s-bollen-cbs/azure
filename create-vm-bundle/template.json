@@ -1,5 +1,549 @@
 {
-	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.0",
-	"outputs": {}
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.1",
+	"parameters": {
+		"dataServerNetworkInterfaceName": {
+			"type": "string"
+		},
+		"managmentServerNetworkInterfaceName": {
+			"type": "string"
+		},
+		"loadtestServerNetworkInterfaceName": {
+			"type": "string"
+		},
+		"loadtestServer2NetworkInterfaceName": {
+			"type": "string"
+		},
+		"dataServerPublicIpAddressId": {
+			"type": "string"
+		},
+		"managementServerPublicIpAddressId": {
+			"type": "string"
+		},
+		"loadtestServerPublicIpAddressId": {
+			"type": "string"
+		},
+		"loadtestServer2PublicIpAddressId": {
+			"type": "string"
+		},
+		"dataServerVirtualMachineName": {
+			"type": "string"
+		},
+		"managementServerVirtualMachineName": {
+			"type": "string"
+		},
+		"loadtestServerVirtualMachineName": {
+			"type": "string"
+		},
+		"loadtestServer2VirtualMachineName": {
+			"type": "string"
+		},
+		"dataServerVirtualMachineComputerName": {
+			"type": "string"
+		},
+		"managementServerVirtualMachineComputerName": {
+			"type": "string"
+		},
+		"loadtestServerVirtualMachineComputerName": {
+			"type": "string"
+		},
+		"loadtestServer2VirtualMachineComputerName": {
+			"type": "string"
+		},
+		"dataServerVirtualMachineSize": {
+			"type": "string",
+			"allowedValues": "[variables('allowedVirtualMachineSizes')]"
+	        },
+	        "managementServerVirtualMachineSize": {
+			"type": "string",
+			"allowedValues": "[variables('allowedVirtualMachineSizes')]"
+	        },
+	        "loadtestServerVirtualMachineSize": {
+			"type": "string",
+			"allowedValues": "[variables('allowedVirtualMachineSizes')]"
+	        },
+		"dataServerImageReferenceId": {
+			"type": "string",
+		},
+		"managementServerImageReferenceId": {
+			"type": "string",
+		},
+		"loadtestServerImageReferenceId": {
+			"type": "string",
+		},
+		"loadtestServer2ImageReferenceId": {
+			"type": "string",
+		},
+		"networkSecurityGroupId": {
+			"type": "string"
+		},
+		"virtualNetworkId": {
+			"type": "string"
+		},
+		"virtualMachineRG": {
+			"type": "string"
+		},
+		"location": {
+			"type": "string",
+			"defaultValue": "[resourceGroup().location]",
+			"metadata": {
+				"description": "Location for all resources."
+			}
+		},
+		"osDiskType": {
+			"type": "string",
+			"defaultValue": "Premium_LRS",
+			"metadata": {
+				"description": "Type of OS disk to use."
+			}
+		},
+		"subnetName": {
+			"type": "string",
+			"defaultValue": "default"
+		},
+		"autoShutdownStatus": {
+			"type": "string",
+			"defaultValue": "Enabled",
+			"metadata": {
+				"description": "Auto shut down flag indicates whether or not the virtual machines need to be automatically shut down"
+			}
+		},
+		"autoShutdownTime": {
+			"type": "string",
+			"defaultValue": "18:00",
+			"metadata": {
+				"description": "Time at which to automatically shut down the virtual machines"
+			}
+		},
+		"autoShutdownTimeZone": {
+			"type": "string",
+			"defaultValue": "W. Europe Standard Time",
+			"metadata": {
+				"description": "The time zone in relation to which the auto shut down time is set"
+			}
+		},
+		"autoShutdownNotificationStatus": {
+			"type": "string",
+			"defaultValue": "Disabled",
+			"metadata": {
+				"description": "Flag to indicate whether or not a notification should be sent when the virtual machines are about to be shut down"
+			}
+		},
+		"autoShutdownNotificationLocale": {
+			"type": "string",
+			"defaultValue": "en",
+			"metadata": {
+				"description": "Notification culture"
+			}
+		},
+		"autoShutdownNotificationEmail": {
+			"type": "string",
+			"defaultValue": "",
+			"metadata": {
+				"description": "Notification recipient email address"
+			}
+		},
+		"adminUsername": {
+			"type": "string"
+		},
+		"adminPassword": {
+			"type": "secureString"
+		},
+		"enableHotpatching": {
+			"type": "bool"
+		},
+		"patchMode": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"myNsgId": "[parameters('networkSecurityGroupId')]",
+		"myVNetId": "[parameters('virtualNetworkId')]",
+		"mySubNetName": "[parameters('subnetName')]",
+		"subnetRef": "[concat(variables('myVNetId'), '/subnets/', variables('mySubNetName'))]",
+		"allowedVirtualMachineSizes": [
+			"Standard_DS1_v2",
+			"Standard_DS2_v2",
+			"Standard_DS3_v2",
+			"Standard_DS4_v2",
+			"Standard_D4s_v3",
+			"Standard_D4ds_v4",
+			"Standard_DS5_v2",
+			"Standard_D8as_v4",
+			"Standard_E2s_v3"
+		]
+	},
+	"resources": [
+	{
+		"name": "[parameters('dataServerNetworkInterfaceName')]",
+		"type": "Microsoft.Network/networkInterfaces",
+		"apiVersion": "2018-10-01",
+		"location": "[parameters('location')]",
+		"dependsOn": [],
+		"properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "dataServerIpconfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIpAddress": {
+                                "id": "[parameters('dataServerPublicIpAddressId')]"
+                            }
+                        }
+                    }
+                ],
+                "networkSecurityGroup": {
+                    "id": "[variables('myNsgId')]"
+                }
+            }
+        },
+        {
+            "name": "[parameters('managementServerNetworkInterfaceName')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "managmentServerIpconfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIpAddress": {
+                                "id": "[parameters('managmentServerPublicIpAddressId')]"
+                            }
+                        }
+                    }
+                ],
+                "networkSecurityGroup": {
+                    "id": "[variables('myNsgId')]"
+                }
+            }
+        },
+        {
+            "name": "[parameters('loadtestServerNetworkInterfaceName')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "loadtestServerIpconfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIpAddress": {
+                                "id": "[parameters('loadtestServerPublicIpAddressId')]"
+                            }
+                        }
+                    }
+                ],
+                "networkSecurityGroup": {
+                    "id": "[variables('myNsgId')]"
+                }
+            }
+        },
+        {
+            "name": "[parameters('loadtestServer2NetworkInterfaceName')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2018-10-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "loadtestServer2Ipconfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIpAddress": {
+                                "id": "[parameters('loadtestServer2PublicIpAddressId')]"
+                            }
+                        }
+                    }
+                ],
+                "networkSecurityGroup": {
+                    "id": "[variables('myNsgId')]"
+                }
+            }
+        },
+        {
+            "name": "[parameters('dataServerVirtualMachineName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2021-03-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('dataServerNetworkInterfaceName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('dataServerVirtualMachineSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('osDiskType')]"
+                        }
+                    },
+                    "imageReference": {
+                        "id": "[parameters('dataServerImageReferenceId')]"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('dataServerNetworkInterfaceName'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true
+                    }
+                }
+            }
+        },
+        {
+            "name": "[parameters('managmentServerVirtualMachineName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2021-03-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('managementServerNetworkInterfaceName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('managementServerVirtualMachineSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('osDiskType')]"
+                        }
+                    },
+                    "imageReference": {
+                        "id": "[parameters('managementServerImageReferenceId')]"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('managementServerNetworkInterfaceName'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true
+                    }
+                }
+            }
+        },
+        {
+            "name": "[parameters('loadtestServerVirtualMachineName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2021-03-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('loadtestServerNetworkInterfaceName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('loadtestServerVirtualMachineSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('osDiskType')]"
+                        }
+                    },
+                    "imageReference": {
+                        "id": "[parameters('loadtestServerImageReferenceId')]"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('loadtestServerNetworkInterfaceName'))]"
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('loadtestServerVirtualMachineName')]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]",
+                    "windowsConfiguration": {
+                        "enableAutomaticUpdates": true,
+                        "provisionVmAgent": true,
+                        "patchSettings": {
+                            "enableHotpatching": "[parameters('enableHotpatching')]",
+                            "patchMode": "[parameters('patchMode')]"
+                        }
+                    }
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true
+                    }
+                }
+            }
+        },
+        {
+            "name": "[parameters('loadtestServer2VirtualMachineName')]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2021-03-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Network/networkInterfaces/', parameters('loadtestServer2NetworkInterfaceName'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('loadtestServerVirtualMachineSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "createOption": "fromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('osDiskType')]"
+                        }
+                    },
+                    "imageReference": {
+                        "id": "[parameters('loadtestServerImageReferenceId')]"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('loadtestServer2NetworkInterfaceName'))]"
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('loadtestServer2VirtualMachineName')]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]",
+                    "windowsConfiguration": {
+                        "enableAutomaticUpdates": true,
+                        "provisionVmAgent": true,
+                        "patchSettings": {
+                            "enableHotpatching": "[parameters('enableHotpatching')]",
+                            "patchMode": "[parameters('patchMode')]"
+                        }
+                    }
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true
+                    }
+                }
+            }
+        },
+        {
+            "name": "[concat('shutdown-computevm-', parameters('dataServerVirtualMachineName'))]",
+            "type": "Microsoft.DevTestLab/schedules",
+            "apiVersion": "2018-09-15",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('dataServerVirtualMachineName'))]"
+            ],
+            "properties": {
+                "status": "[parameters('autoShutdownStatus')]",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "[parameters('autoShutdownTime')]"
+                },
+                "timeZoneId": "[parameters('autoShutdownTimeZone')]",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('dataServerVirtualMachineName'))]",
+                "notificationSettings": {
+                    "status": "[parameters('autoShutdownNotificationStatus')]",
+                    "notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
+                    "timeInMinutes": "30"
+                }
+            }
+        },
+        {
+            "name": "[concat('shutdown-computevm-', parameters('managementServerVirtualMachineName'))]",
+            "type": "Microsoft.DevTestLab/schedules",
+            "apiVersion": "2018-09-15",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('managementServerVirtualMachineName'))]"
+            ],
+            "properties": {
+                "status": "[parameters('autoShutdownStatus')]",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "[parameters('autoShutdownTime')]"
+                },
+                "timeZoneId": "[parameters('autoShutdownTimeZone')]",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('managementServerVirtualMachineName'))]",
+                "notificationSettings": {
+                    "status": "[parameters('autoShutdownNotificationStatus')]",
+                    "notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
+                    "timeInMinutes": "30"
+                }
+            }
+        },
+        {
+            "name": "[concat('shutdown-computevm-', parameters('loadtestServerVirtualMachineName'))]",
+            "type": "Microsoft.DevTestLab/schedules",
+            "apiVersion": "2018-09-15",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('loadtestServerVirtualMachineName'))]"
+            ],
+            "properties": {
+                "status": "[parameters('autoShutdownStatus')]",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "[parameters('autoShutdownTime')]"
+                },
+                "timeZoneId": "[parameters('autoShutdownTimeZone')]",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('loadtestServerVirtualMachineName'))]",
+                "notificationSettings": {
+                    "status": "[parameters('autoShutdownNotificationStatus')]",
+                    "notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
+                    "timeInMinutes": "30"
+                }
+            }
+        },
+        {
+            "name": "[concat('shutdown-computevm-', parameters('loadtestServer2VirtualMachineName'))]",
+            "type": "Microsoft.DevTestLab/schedules",
+            "apiVersion": "2018-09-15",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[concat('Microsoft.Compute/virtualMachines/', parameters('loadtestServer2VirtualMachineName'))]"
+            ],
+            "properties": {
+                "status": "[parameters('autoShutdownStatus')]",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                    "time": "[parameters('autoShutdownTime')]"
+                },
+                "timeZoneId": "[parameters('autoShutdownTimeZone')]",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('loadtestServer2VirtualMachineName'))]",
+                "notificationSettings": {
+                    "status": "[parameters('autoShutdownNotificationStatus')]",
+                    "notificationLocale": "[parameters('autoShutdownNotificationLocale')]",
+                    "timeInMinutes": "30"
+                }
+            }
+        },
+    ],
+    "outputs": {}
 }
