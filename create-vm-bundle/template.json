@@ -1,6 +1,6 @@
 {
 	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.4",
+	"contentVersion": "1.0.0.5",
 	"parameters": {
 		"dataServerNetworkInterfaceName": {
 			"type": "string"
@@ -39,16 +39,20 @@
 			"type": "string"
 		},
 		"dataServerVirtualMachineComputerName": {
-			"type": "string"
+			"type": "string",
+			"maxLength": 15
 		},
 		"managementServerVirtualMachineComputerName": {
-			"type": "string"
+			"type": "string",
+			"maxLength": 15
 		},
 		"loadtestServerVirtualMachineComputerName": {
-			"type": "string"
+			"type": "string",
+			"maxLength": 15
 		},
 		"loadtestServer2VirtualMachineComputerName": {
-			"type": "string"
+			"type": "string",
+			"maxLength": 15
 		},
 		"dataServerVirtualMachineSize": {
 			"type": "string",
