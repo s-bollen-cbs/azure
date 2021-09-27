@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.4",
+    "contentVersion": "1.0.0.5",
     "parameters": {
         "dataServerNetworkInterfaceName": {
             "value": "blaise5-data-860"
@@ -42,7 +42,7 @@
             "value": "blaise5-data"
         },
         "managementServerVirtualMachineComputerName": {
-            "value": "blaise5-managem"
+            "value": "blaise5-manage"
         },
         "loadtestServerVirtualMachineComputerName": {
             "value": "blaise5-load1"
