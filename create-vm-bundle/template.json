@@ -1,6 +1,6 @@
 {
 	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-	"contentVersion": "1.0.0.7",
+	"contentVersion": "1.0.0.8",
 	"parameters": {
 		"dataServerNetworkInterfaceName": {
 			"type": "string"
@@ -227,7 +227,8 @@
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
                             },
-                            "privateIPAllocationMethod": "Dynamic",
+                            "privateIPAllocationMethod": "Static",
+                            "privateIPAddress": "10.0.0.5",
                             "publicIpAddress": {
                                 "id": "[parameters('managementServerPublicIpAddressId')]"
                             }
@@ -253,7 +254,8 @@
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
                             },
-                            "privateIPAllocationMethod": "Dynamic",
+                            "privateIPAllocationMethod": "Static",
+                            "privateIPAddress": "10.0.0.6",
                             "publicIpAddress": {
                                 "id": "[parameters('loadtestServerPublicIpAddressId')]"
                             }
@@ -279,7 +281,8 @@
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
                             },
-                            "privateIPAllocationMethod": "Dynamic",
+                            "privateIPAllocationMethod": "Static",
+                            "privateIPAddress": "10.0.0.7",
                             "publicIpAddress": {
                                 "id": "[parameters('loadtestServer2PublicIpAddressId')]"
                             }
